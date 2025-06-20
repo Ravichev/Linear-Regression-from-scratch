@@ -9,19 +9,19 @@ class LinearRegressionModel:
         self.loss_history = []
 
     def normalize_features(self, X):
-        """Нормализует признаки X, возвращает нормализованные данные."""
+        """Returning normalized data from features of X."""
         mean_values = np.mean(X, axis=0)
         std_values = np.std(X, axis=0)
         X_normalized = (X - mean_values) / std_values
         return X_normalized
 
     def add_intercept(self, X):
-        """Добавляет столбец единиц к матрице X для интерсепта."""
+        """Add row of ones to X matrix (adding intercept)/"""
         intercept = np.ones((X.shape[0], 1))
         return np.concatenate((intercept, X), axis=1)
 
     def fit(self, X, y):
-        """Тренирует модель линейной регрессии."""
+        """Training linear regression model."""
         X = self.add_intercept(X)
         m, n = X.shape
         self.weights = np.zeros(n)
@@ -43,7 +43,7 @@ class LinearRegressionModel:
         return self
 
     def predict(self, X):
-        """Предсказывает значения для новых данных на основе обученных весов."""
+        """Predicting values for the new data based on weigths."""
         if self.weights is None:
             raise ValueError("Model has not been trained yet!")
         if isinstance(X, list):
@@ -54,11 +54,11 @@ class LinearRegressionModel:
         return X.dot(self.weights)
 
     def get_loss_history(self):
-        """Возвращает историю потерь."""
+        """Returning loss history"""
         return self.loss_history
 
     def get_weights(self):
-        """Возвращает веса модели."""
+        """Returning model weights"""
         if self.weights is None:
             raise ValueError("Model has not been trained yet!")
         return self.weights
